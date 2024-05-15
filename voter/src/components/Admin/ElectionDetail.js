@@ -41,6 +41,7 @@ const ElectionDetails = () => {
       };
       await axios.delete(`http://localhost:3000/admin/ballots/${id}`, config);
       // Handle deletion success (e.g., show success message, navigate back to admin home)
+      window.location.href = "/admin";
     } catch (error) {
       console.error("Error deleting election:", error.response.data);
       // Handle deletion error (e.g., show error message)

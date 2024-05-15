@@ -10,7 +10,7 @@ const Voting = () => {
 
   useEffect(() => {
     fetchElection();
-  });
+  }, [id]);
 
   const fetchElection = async () => {
     try {
@@ -25,14 +25,16 @@ const Voting = () => {
         config
       );
       setElection(res.data);
+      setSelectedCandidate(""); // Reset selectedCandidate on election fetch
     } catch (error) {
       console.log(error);
     }
   };
 
-  const handleVote = () => {
-    // Perform vote submission logic here
+  const handleVote = async (event) => {
+    event.preventDefault();
     console.log("Voted for candidate:", selectedCandidate);
+    
   };
 
   return (
@@ -54,10 +56,9 @@ const Voting = () => {
                   id={candidate.id}
                   name="candidate"
                   value={candidate.id}
-                  checked={selectedCandidate === String(candidate.id)} // Convert selectedCandidate to string for comparison
+                  checked={selectedCandidate === String(candidate.id)}
                   onChange={(e) => setSelectedCandidate(e.target.value)}
                 />
-
                 <label htmlFor={candidate.id} className="pl-3">
                   {candidate.name}
                 </label>
